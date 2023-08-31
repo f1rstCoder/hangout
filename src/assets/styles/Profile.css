@@ -1,0 +1,130 @@
+.profile {
+  height: 100%;
+  max-width: 100%;
+}
+
+.bannerImg {
+  height: 20vh;
+  width: 100%;
+}
+
+.profileImgDiv {
+  margin-top: -3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.profileImg {
+  height: 15vh;
+  width: 15vh;
+  border-radius: 50%;
+  border: 0.25rem solid var(--root-theme-color);
+}
+
+.line {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+}
+
+.btnDiv {
+  position: fixed;
+  bottom: 1rem;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.usernameDisplay {
+  text-align: center;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.detailsList {
+  margin: 1rem 0px;
+}
+
+.generalInfo {
+  display: flex;
+}
+
+.profilePanel {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editIcon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0.5rem 0.2rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--root-theme-color);
+  width: 30%;
+}
+
+
+.editIcon:hover {
+  cursor: pointer;
+}
+
+.editText {
+  text-align: center;
+  width: 70%;
+  float: right;
+  color: white;
+}
+
+.title,
+.introTitle,
+.tagsTitle {
+  font-weight: bolder;
+  color: var(--root-theme-color)
+}
+
+.intro,
+.tags {
+  text-align: center;
+  margin: 0 0.2rem;
+}
+
+.introTitle,
+.tagsTitle {
+  margin: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.detail,
+.title {
+  margin: 0.2rem;
+}
+
+.tagsList {
+  display: flex;
+  margin: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tagName {
+  padding: 0.7rem 1rem;
+  background-color: var(--root-theme-color);
+  border-radius: 32px;
+  margin: 5px 5px;
+}
+
+.numOfPosts {
+  text-align: center;
+  color: white;
+  background-color: var(--root-theme-color);
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-weight: 600;
+}

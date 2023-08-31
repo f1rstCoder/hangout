@@ -1,0 +1,41 @@
+.layoutContent {
+  width: min(100vw, 900px);
+  margin: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-flow: column;
+  height: calc(100vh - min(9vh, 60px));
+  padding: 0.5rem;
+}
+
+.footerElement {
+  width: 100vw;
+  word-wrap: normal;
+  background-color: grey;
+  /* position: absolute; */
+  bottom: 0px;
+  flex-grow: 1;
+}
+
+@media screen and (min-width: 900px) {
+  .layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbarLayout {
+    width: 20%;
+    float: left;
+    height: 100vh;
+  }
+
+  .layoutContent {
+    width: 80%;
+    margin: auto;
+    float: right;
+    height: 100vh;
+    padding: 0px 20%;
+  }
+}

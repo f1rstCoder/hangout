@@ -1,0 +1,39 @@
+.displayChats {
+    width: min(100%, 1000px);
+    margin: auto;
+}
+
+
+.displayHeading,
+.chat {
+    display: flex;
+    align-items: center;
+}
+
+.displayHeading {
+    justify-content: center;
+    margin: 1rem 0rem;
+}
+
+.chat {
+    /* border: 1px solid var(--root-theme-color); */
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    margin: 0.25rem 0rem;
+    background-color: var(--root-hover-color);
+    justify-content: space-between;
+}
+
+.authorBarInMessagesPage {
+    width: 80%;
+}
+
+.dateAndUnreadDiv {
+    width: 20%;
+    height: 100%;
+    text-align: center;
+}
+
+.lastChatDate {
+    text-align: center;
+}

@@ -1,0 +1,166 @@
+.chatsSection {
+    position: relative;
+    /* border: 1px solid var(--root-theme-color); */
+    height: 100%;
+    /* height: 100%; */
+}
+
+.chatUser {
+    position: sticky;
+    top: 0;
+    height: min(10%, 70px);
+    border-bottom: 1px solid var(--root-theme-color);
+    z-index: 199;
+    background-color: var(--root-background-color);
+}
+
+.chatProfile {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: fit-content;
+    float: left;
+    height: 100%;
+    width: 100%;
+}
+
+.profilePhoto {
+    padding: 0.1rem;
+    margin: 0 0.5rem;
+}
+
+.profilePicinDMPage {
+    width: 2rem;
+    height: 90%;
+}
+
+.chatsContent {
+    /* height: calc(100% - min(10%, 70px)); */
+    height: calc(100% - 155px);
+    overflow: scroll;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatsUI {
+    width: 100%;
+    max-height: 80%;
+    display: table;
+    overflow-y: scroll;
+    padding-bottom: 0.5rem;
+    vertical-align: bottom;
+}
+
+.cell {
+    /* display: table-cell; */
+    /* vertical-align: bottom; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+}
+
+
+.cell::-webkit-scrollbar {
+    display: none;
+}
+
+.messageContainer {
+    display: block;
+    margin-top: auto;
+    width: 100%;
+    padding: 0.5rem 0rem;
+}
+
+.messageTime {
+    text-align: right;
+    margin-bottom: 0.5rem;
+    color: rgb(43, 43, 43)
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.individualMessage {
+    margin: 0.2rem 1rem;
+}
+
+.messageContent {
+    background-color: var(--root-theme-color);
+    max-width: 60%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    text-align: justify;
+}
+
+.addChat {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20%;
+    /* border-bottom: 1px solid var(--root-theme-color); */
+    z-index: 199;
+
+}
+
+.chatsForm {
+    width: 100%;
+    background-color: var(--root-hover-color);
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.textAreaDiv {
+    width: 100%;
+    margin: 0;
+    padding: 0rem 1rem;
+    float: left;
+    flex-grow: 8;
+    border-right: 1px solid rgba(156, 156, 156, 0.3);
+}
+
+#scrollIntoView {
+    margin-top: 1.2rem;
+
+}
+
+.chatTextArea {
+    resize: none;
+    border-radius: 0.4rem;
+    font-size: large;
+    line-height: normal;
+    height: 100%;
+}
+
+.chatTextArea:focus {
+    outline: none;
+}
+
+.submitChat {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 2;
+}
+
+.submitChatBtn {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    margin: 0.5rem;
+}

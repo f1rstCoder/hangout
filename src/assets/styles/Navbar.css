@@ -1,0 +1,93 @@
+.navbar {
+  height: min(9vh, 60px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1px solid var(--root-icon-color);
+  position: sticky;
+  top: 0px;
+  background-color: black;
+  z-index: 200;
+}
+
+.navlinks {
+  width: 100%;
+}
+
+.navlink-data {
+  display: flex;
+  width: 100%;
+}
+
+.hangoutHeader {
+  margin: 0;
+}
+
+.hangoutName {
+  color: var(--root-theme-color)
+}
+
+a {
+  text-decoration: none;
+}
+
+.iconDiv {
+  padding: 0.05vw;
+  border-radius: 0.5rem;
+}
+
+.navbarBtn {
+  border: none;
+  outline: none;
+}
+
+.active {
+  background-color: var(--root-theme-color);
+}
+
+.iconDiv:hover {
+  background-color: var(--root-hover-color);
+  /* font-size: 1.1rem; */
+  cursor: pointer;
+}
+
+.logoutBtn {
+  padding: 0.5rem
+}
+
+.logoutBtn:hover {
+  cursor: pointer;
+}
+
+.titleOfNavDiv {
+  display: none;
+}
+
+@media screen and (min-width: 900px) {
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 100vh;
+    width: 20%;
+    border-right: 1px solid rgba(156, 156, 156, 0.3);
+    border-bottom: 0px;
+    padding: 0.3rem;
+  }
+
+  .iconDiv {
+    width: 100%;
+    display: flex;
+  }
+
+  .navlink-data {
+    padding: 0.5rem 1rem;
+  }
+
+  .titleOfNavDiv {
+    display: block;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,42 @@
+.authorBar,
+.profilePhotoDiv {
+  padding: 0.25rem;
+  padding-left: 0;
+  height: 100%;
+}
+
+.authorBarContent {
+  display: flex;
+  height: 100%;
+}
+
+.profilePhotoDiv {
+  width: 20%;
+}
+
+.profilePhotoDiv,
+.authorNameDiv,
+.byLineDiv {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.authorBarContentDiv {
+  width: 100%;
+  padding: 0.25rem;
+}
+
+.authorNameDiv,
+.byLinDiv {
+  height: 50%;
+}
+
+.byLinDiv {
+  color: var(--root-byLine-color);
+}
+
+.authorNameDiv {
+  font-weight: bold;
+  font-size: 1rem;
+}

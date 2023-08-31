@@ -1,0 +1,22 @@
+.error404 {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.errorMsg,
+.errorTitle {
+    min-width: 80%;
+    margin: 0;
+    text-align: center;
+}
+
+.errorTitle {
+    font-size: 4rem;
+}
+
+.errorMsg {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}

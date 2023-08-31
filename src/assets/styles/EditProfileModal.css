@@ -1,0 +1,94 @@
+.editProfileForm {
+    align-items: center;
+    max-height: 80%;
+    overflow-y: scroll;
+    /* padding: 0.25rem; */
+    position: relative;
+}
+
+
+label {
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0rem;
+    text-align: center;
+    border-radius: 0.25rem;
+    background-color: transparent;
+}
+
+label:hover {
+    background-color: transparent;
+    cursor: auto;
+}
+
+.editProfileInput {
+    background-color: green;
+}
+
+.editProfileForm input {
+    display: block;
+    height: max-content;
+}
+
+.editProfileForm input,
+.editProfileForm select {
+    /* display: block; */
+    padding: 0.25rem;
+    margin: 0.5rem 0;
+    border-radius: 0.25rem;
+    width: 100%;
+    color: var(--root-icon-color);
+    background-color: var(--root-hover-colors);
+}
+
+.editProfileForm select {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.editProfileForm h3 {
+    text-align: center;
+}
+
+.editProfilePageOne,
+.editProfilePageTwo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 80%;
+    padding: 0.25rem;
+    overflow-y: scroll;
+}
+
+
+.editProfilePageOne>input,
+.editProfilePageTwo input {
+    padding: 0.5rem;
+    width: 100vw;
+}
+
+.editProfileNavigation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+}
+
+.navigateEditProfile {
+    margin: 0 0.5rem;
+    padding: 1rem;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 0.5rem;
+}
+
+.editProfileDescription {
+    width: 80%;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}

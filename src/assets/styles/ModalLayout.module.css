@@ -1,0 +1,36 @@
+.modalHeadingDiv,
+.modalContent,
+.modalFooter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.modalHeadingDiv {
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: center;
+  height: 10%;
+}
+
+.modalNavDiv {
+  width: 15%;
+}
+
+.modalHeader {
+  width: 70%;
+}
+
+.modalContent {
+  height: 80%;
+}
+
+.modalFooter {
+  height: 10%;
+}
+
+.closingFunctionDiv:hover {
+  cursor: pointer;
+}
