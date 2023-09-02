@@ -1,6 +1,6 @@
 .mediaParentDiv {
   width: 100%;
-  min-height: 50vh;
+  min-height: min(50vh, 300px);
   margin-bottom: 0.5rem;
   border: 1px solid rgba(156, 156, 156, 0.3);
   border-radius: 0.1rem;
@@ -8,11 +8,10 @@
 
 .media {
   width: 100%;
-  height: 50vh;
+  height: min(50vh, 300px);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
 }
 
 .navBtnDiv {

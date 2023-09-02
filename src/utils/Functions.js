@@ -12,3 +12,14 @@ export const handleFindAccount = receivedUsername => {
     })
     .catch(err => console.error(err));
 }
+
+
+export const setDarkMode = () => {
+  localStorage.setItem('theme', 'dark')
+  document.querySelector("body").setAttribute('data-theme', "dark")
+}
+
+export const setLightMode = () => {
+  localStorage.setItem('theme', 'light')
+  document.querySelector("body").setAttribute('data-theme', "light")
+}

@@ -1,0 +1,17 @@
+.btnStyle {
+  padding: 1vw;
+  /* margin-left: 1vw; */
+  margin: auto;
+  border-radius: 0.25rem;
+  outline: none;
+  border: none;
+  display: flex;
+  background-color: transparent;
+  color: var(--root-theme-color);
+  border: 1px solid var(--root-text-color);
+  background-color: var(--root-text-color);
+}
+
+.btnStyle:disabled {
+  color: var(--root-byLine-color);
+}

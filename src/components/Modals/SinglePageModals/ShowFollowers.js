@@ -1,50 +1,57 @@
-import React from 'react'
-import ModalSkeleton from '../ModalSkeleton'
+import React, { useState, useEffect } from 'react'
+import ModalLayout from '../ModalLayout';
+import { getAxios } from '../../../lib/DefineAxiosGet';
 import '../../../assets/styles/ShowFollowers.css'
-import useFetchProfilePic from '../../../hooks/useFetchProfilePic';
-import useFetchFollowers from '../../../hooks/useFetchFollowers';
-import { CloseIcon } from '../../../assets/icons/PostsIcons';
 import { handleFindAccount } from '../../../utils/Functions';
 import NavigateButton from '../../ui/Buttons/NavigateButton';
-import ModalLayout from '../ModalLayout';
 
 const ShowFollowers = ({ id, closingFunction }) => {
-  const { followersList, followersCount } = useFetchFollowers(id)
-  const { followerProfilePics } = useFetchProfilePic(followersList);
-  console.log(followersList)
-  const handleCloseButton = (
-    <div className="buttonClose">
-      <NavigateButton
-        navigateButtonText={"Close"}
-        handleClickFunction={closingFunction}
-      />
-    </div>
-  )
+  const [followers, setFollowers] = useState([])
+  const [followerProfilePics, setFollowerProfilePics] = useState([])
+  const [followersCount, setFollowersCount] = useState(0)
+
+  const getProfilePic = followers => {
+    getAxios(`http://localhost:3050/users`, {
+      username: followers
+    })
+      .then(res => setFollowerProfilePics(oldVal => [...oldVal, res[0].profile_photo]))
+      .catch(err => console.error(err))
+  }
+
+  useEffect(() => {
+    getAxios(`http://localhost:3060/users/${id}`)
+      .then(res => {
+        setFollowersCount(res.followers.length)
+        setFollowers([...res.followers])
+        res.followers.forEach(follower => getProfilePic(follower))
+      })
+      .catch(err => console.error(err))
+  }, [])
 
   const ShowFollowersContent = () => {
-    <div className="displayProfileInfoDiv">
-      {
-        followersList?.map((follower, index) => {
-          return (
-            <div className="displayProfileInfo" onClick={() => handleFindAccount(follower)}>
-              Hello {index}
-              <div className="profilePhotoDiv">
-                <img src={followerProfilePics[index]} alt="" className='profilePic' key={index} />
+    return (
+      <div className="displayProfileInfoDiv">
+        {followers &&
+          followers.map((follower, index) => {
+            return (
+              <div className="displayProfileInfo" onClick={() => handleFindAccount(follower)}>
+                <div className="profilePhotoDiv">
+                  <img src={followerProfilePics[index]} alt="" className='profilePic' key={index} />
+                </div>
+                <div className="profileNameDiv">
+                  {follower}
+                </div>
               </div>
-              <div className="profileNameDiv">
-                {follower}
-              </div>
-            </div>
-          )
-        })
-      }
-    </div>
+            )
+          })
+        }
+      </div>
+    )
   }
+
   return (
     <ModalLayout
       closeModal={closingFunction}
-      handleCloseButton={handleCloseButton}
-      currentPage={1}
       modalHeaderTitle={`Followers: ${followersCount}`}
       modalContent={ShowFollowersContent}
     />

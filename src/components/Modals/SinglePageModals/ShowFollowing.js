@@ -28,15 +28,6 @@ const ShowFollowing = ({ id, closingFunction }) => {
       .catch(err => console.error(err))
   }, [])
 
-  const handleCloseButton = (
-    <div className="buttonClose">
-      <NavigateButton
-        navigateButtonText={"Close"}
-        handleClickFunction={closingFunction}
-      />
-    </div>
-  )
-
   const ShowFollowingContent = () => {
     return (
       <div className="displayProfileInfoDiv">
@@ -61,8 +52,6 @@ const ShowFollowing = ({ id, closingFunction }) => {
   return (
     <ModalLayout
       closeModal={closingFunction}
-      handleCloseButton={handleCloseButton}
-      currentPage={1}
       modalHeaderTitle={`Following: ${followingCount}`}
       modalContent={ShowFollowingContent}
     />

@@ -1,0 +1,21 @@
+.comment {
+  background-color: var(--root-hover-color);
+  border-radius: 0.5rem;
+  margin-left: 2vw;
+  margin-bottom: 0.5rem;
+  width: max(230px, 60%);
+  padding: 0.25rem;
+}
+
+.addingAuthorBarInComments {
+  height: min(60px, 7vh);
+}
+
+
+.content {
+  margin: 0;
+  padding: 0rem 0.25rem;
+  max-width: 100%;
+  height: fit-content;
+  font-size: 1.3rem;
+}

@@ -5,13 +5,17 @@
   height: 100%;
 }
 
+.authorBar {
+  color: var(--root-text-color);
+}
+
 .authorBarContent {
   display: flex;
   height: 100%;
 }
 
 .profilePhotoDiv {
-  width: 20%;
+  width: 80px;
 }
 
 .profilePhotoDiv,
@@ -28,15 +32,16 @@
 }
 
 .authorNameDiv,
-.byLinDiv {
+.byLineDiv {
   height: 50%;
 }
 
-.byLinDiv {
+.byLineDiv {
   color: var(--root-byLine-color);
+  font-size: 1rem;
 }
 
 .authorNameDiv {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }

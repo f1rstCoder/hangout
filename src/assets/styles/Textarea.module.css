@@ -1,4 +1,8 @@
 .textarea {
   resize: none;
   width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid var(--root-text-color);
 }

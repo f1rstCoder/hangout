@@ -1,5 +1,6 @@
 .profilePhoto {
   margin: auto;
   border-radius: 50%;
-  height: 100%;
+  height: min(50px, 100%);
+  width: min(50px, 100%);
 }

@@ -25,10 +25,20 @@
 
 .modalContent {
   height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .modalFooter {
   height: 10%;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modalFooter>div {
+  margin: 0 0.5rem;
 }
 
 .closingFunctionDiv:hover {

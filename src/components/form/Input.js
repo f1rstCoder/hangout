@@ -1,4 +1,5 @@
 import React from 'react'
+import InputCSS from '../../assets/styles/Input.module.css'
 
 const Input = ({
   receivedAutoComplete = "off",
@@ -13,6 +14,7 @@ const Input = ({
       value={receivedValue}
       onChange={receivedOnChange}
       placeholder={receivedPlaceholder}
+      className={InputCSS.inputElement}
     />
   )
 }

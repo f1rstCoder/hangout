@@ -4,14 +4,18 @@ import { useDispatch } from 'react-redux'
 import { setPostCount } from '../../context/data/dataSlice'
 import Feeds from '../Feeds/Feeds'
 import { getAxios } from '../../lib/DefineAxiosGet'
+// import Status from '../Statuses/Status'
+import NewPostModal from '../../components/Modals/MultiPageModals/NewPostModal'
+
 const Home = () => {
   const id = localStorage.getItem('id')
   const [posts, setPosts] = useState([])
-  const dispatch = useDispatch()
+  // const [status, setStatus] = useState([])
+  const [showNewPostModal, setShowNewPostModal] = useState(false)
 
-  const shuffleArray = array => {
-    return array.sort(() => Math.random() - 0.5);
-  }
+  const dispatch = useDispatch()
+  const shuffleArray = array => array.sort(() => Math.random() - 0.5);
+  const closeModalNewPost = () => setShowNewPostModal(false)
 
   useEffect(() => {
     //Fetching Followers List
@@ -36,10 +40,16 @@ const Home = () => {
                   dispatch(setPostCount(length))
                 })
                 .catch(err => console.error(err))
+              // Axios call for statuses
+              // getAxios(`http://localhost:3080/${res[0].id}`)
+              //   .then(resp => {
+              //     console.log("sTATUSES rESP: ", res[0].id, " = ", resp)
+              //     resp.forEach(status => setStatus(oldStatusArray => [...oldStatusArray, status]))
+              //   })
+              //   .catch(err => console.error(err))
             })
             .catch(err => console.error(err))
-        }
-        )
+        })
         setPosts([...shuffleArray(posts)])
       })
       .catch(err => console.error(err))
@@ -47,12 +57,9 @@ const Home = () => {
 
   return (
     <div className='home'>
-      {posts &&
-        <Feeds
-          posts={posts}
-        />
-
-      }
+      {/* {status && <Status statuses={status} />} */}
+      {posts && <Feeds posts={posts} id={id} user={-1} />}
+      {showNewPostModal && <NewPostModal closingFunction={closeModalNewPost} />}
     </div>
   )
 }

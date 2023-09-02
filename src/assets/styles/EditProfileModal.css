@@ -1,9 +1,13 @@
 .editProfileForm {
     align-items: center;
-    max-height: 80%;
+    height: 100%;
+    width: 100%;
     overflow-y: scroll;
     /* padding: 0.25rem; */
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 
@@ -41,31 +45,35 @@ label:hover {
     background-color: var(--root-hover-colors);
 }
 
+.editFormComponent {
+    width: 100%;
+    margin: 0.25rem 0rem;
+}
+
 .editProfileForm select {
     width: 100%;
     text-align: center;
-    font-size: 1rem;
+    font-size: clamp(0.5rem, 10vw + 0.1rem, 1.2rem);
 }
 
 .editProfileForm h3 {
     text-align: center;
 }
 
-.editProfilePageOne,
-.editProfilePageTwo {
+.editProfilePageOne {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    height: 80%;
+    height: 100%;
+    width: 100%;
     padding: 0.25rem;
     overflow-y: scroll;
 }
 
 
-.editProfilePageOne>input,
-.editProfilePageTwo input {
-    padding: 0.5rem;
+.editProfilePageOne>input {
+    padding: 0.25rem;
     width: 100vw;
 }
 

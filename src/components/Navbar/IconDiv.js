@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom'
 import { getAxios } from '../../lib/DefineAxiosGet'
 import { ProfilePhoto } from '../AuthorBar'
 
-const IconDiv = ({ index }) => {
-	const id = localStorage.getItem('id')
-	const [profilePicURL, setProfilePicURL] = useState('')
+const IconDiv = ({ index, id = -1 }) => {
+	const [profilePhotoURL, setProfilePicURL] = useState('')
+	const [profileUsername, setProfileUsername] = useState('')
 
 	useEffect(() => {
-		getAxios(`http://localhost:3050/users`, {
-			id: id
-		})
-			.then(res => setProfilePicURL(res[0]?.profile_photo))
-			.catch(err => console.error(err))
+		if (id > -1) {
+			getAxios(`http://localhost:3050/users/${id}`)
+				.then(res => {
+					setProfilePicURL(res.profile_photo)
+					setProfileUsername(res.username)
+				})
+		}
 	}, [])
 
 	const route = [
@@ -23,33 +25,37 @@ const IconDiv = ({ index }) => {
 		["/message", true, Mail],
 		["/search", true, Search],
 		["", false, More],
-		[`/profile/${id}`, true, HangoutLogo],
+		[`/profile/${id}`, true, ''],
 	]
 	const titlesForNav = ["Home", "Trending", "Messages", "Search", "More", "Profile",]
 	const ComponentName = route[index][2]
 
 	return (
-		<>
-			{
-				route[index][1] ?
-					<div className="navlinks">
-						<Link to={route[index][0]}>
-							<div className="navlink-data">
+		<div className="navlinks">
+			{route[index][1] &&
+				<Link to={route[index][0]}>
+					<div className="navlink-data">
+						<div className="navIconComponent">
+							{index == 5 ?
+								<ProfilePhoto profilePhotoURL={profilePhotoURL} />
+								:
 								<ComponentName />
-								<span className="titleOfNavDiv">{titlesForNav[index]}</span>
-							</div>
-						</Link>
-					</div>
-					:
-					<div className="navlink">
-						<div className="navlink-data">
-							<ComponentName />
-							<span className="titleOfNavDiv">{titlesForNav[index]}</span>
+							}
 						</div>
+						<span className="titleOfNavDiv">{index === 5 ? profileUsername : titlesForNav[index]}</span>
 					</div>
-
+				</Link>
 			}
-		</>
+			{index === 4 &&
+				<div className="navlink-data">
+					<div className="navIconComponent">
+						<ComponentName />
+					</div>
+					<span className="titleOfNavDiv">{titlesForNav[index]}</span>
+				</div>
+			}
+		</div>
+
 	)
 }
 

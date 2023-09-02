@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.LoginForm {
+  max-width: min(335px, 90%);
+  margin: auto;
+}
+
 .title {
   height: 40%;
 }
@@ -34,11 +39,9 @@ button {
 }
 
 input,
-button,
 .error {
   padding: 15px;
   margin: 10px auto;
-  max-width: 335px;
 }
 
 .error {
@@ -53,8 +56,7 @@ input {
   color: var(--root-theme-color)
 }
 
-.errMsg,
-button {
+.errMsg {
   max-width: 80%;
   margin: auto;
   text-align: center;

@@ -1,4 +1,5 @@
 import React from 'react'
+import DropdownCSS from '../../assets/styles/Dropdown.module.css'
 
 const Dropdown = ({ receivedValue = '', handleOnChange = {}, receivedOptionsList }) => {
   return (
@@ -8,7 +9,7 @@ const Dropdown = ({ receivedValue = '', handleOnChange = {}, receivedOptionsList
     >
       {receivedOptionsList.map((option, index) => {
         return (
-          <option key={index} value={option.value}>{option.label}</option>
+          <option className={DropdownCSS.option} key={index} value={option.label}>{option.label}</option>
         )
       })}
     </select>

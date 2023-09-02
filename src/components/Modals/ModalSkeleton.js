@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import React from "react";
 import { createPortal } from "react-dom";
 
-const ModalSkeleton = ({ closeModal, children, handleCloseButton, currentPage }) => {
+const ModalSkeleton = ({ closeModal, children }) => {
   useEffect(() => {
     document.body.style.overflowY = "hidden";
     return () => {
@@ -15,7 +15,6 @@ const ModalSkeleton = ({ closeModal, children, handleCloseButton, currentPage })
       <div className="modal-wrapper" onClick={closeModal}></div>
       <div className="modal-container">
         {children}
-        {currentPage === 2 && handleCloseButton}
       </div>
     </>,
     document.querySelector('.myPortalModalDiv')

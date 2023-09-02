@@ -2,10 +2,10 @@ import React from 'react'
 
 const HeadingTag = ({ type, tagTitle }) => {
 
-  const HeadingTag = type
+  const HeadingTagType = type
   return (
     <div className='headingTag'>
-      <HeadingTag>{tagTitle}</HeadingTag>
+      <HeadingTagType>{tagTitle}</HeadingTagType>
     </div>
   )
 }

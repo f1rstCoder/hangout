@@ -25,7 +25,7 @@ const Search = () => {
 				{searchOutput.length > 0 &&
 					searchOutput.map((output, index) => {
 						return (
-							<div className='searchOutputDiv' onClick={() => handleFindAccount(output.username)}>
+							<div className='searchOutputDiv' onClick={() => handleFindAccount(output.username)} key={index}>
 								<div className="outputProfilePhoto">
 									<img src={output.profile_photo} alt="" className='profilePic' />
 								</div>

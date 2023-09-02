@@ -1,0 +1,15 @@
+.statusMainDiv {
+  margin: 1rem 0rem;
+  height: 200px;
+  background-color: aqua;
+}
+
+.statusTitle {
+  display: flex;
+  padding: 0rem 0.5rem;
+}
+
+.displayStatus {
+  height: 100px;
+  overflow-y: scroll;
+}

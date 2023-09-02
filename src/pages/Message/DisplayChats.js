@@ -11,9 +11,15 @@ const Message = () => {
 	const [messages, setMessages] = useState([])
 	const [listOfDMUsers, setListOfDMUsers] = useState([])
 	const { followerProfilePics } = useFetchProfilePic(listOfDMUsers);
+	const [unreadChatsCount, setUnreadChatsCount] = useState(0)
 
 	useEffect(() => {
-		messages.forEach(message => { setListOfDMUsers(oldArray => [...oldArray, message.chat_user]) })
+		messages.forEach(message => {
+			setListOfDMUsers(oldArray => [...oldArray, message.chat_user])
+			if (message.unreadMsgs > 0)
+				setUnreadChatsCount(unreadChatsCount + 1)
+		})
+		console.log(messages)
 	}, [messages])
 
 	useEffect(() => {
@@ -31,10 +37,7 @@ const Message = () => {
 				<div className="displayChats">
 					{messages.map((message, index) => {
 						return (
-							<Link
-								to={`/dm/${message.chat_user}`}
-								state={{ "message": message, "imgSrc": followerProfilePics[index] }}
-							>
+							<Link to={`/dm/${message.chat_user}`}>
 								<div className="chat">
 									<div className="authorBarInMessagesPage">
 										<AuthorBar
@@ -48,18 +51,15 @@ const Message = () => {
 											<TimeAgo timestamp={message.chats.slice(-1)[0].chat_date} />
 										</div>
 										<div className="unreadMsgsDiv">
-											<div className="unreadMsgsCounter">
-												{message.chats.filter(chat => chat.seen === false).length}
-											</div>
+											{message.chats.filter(chat => chat.seen === false).length > 0 ?
+												<div className="unreadMsgsCounter">
+													{message.chats.filter(chat => chat.seen === false).length}
+												</div>
+												:
+												''
+											}
 										</div>
 									</div>
-									{/* <div className="chatProfilePic">
-										<img src={followerProfilePics[index]} alt="" className='profilePic' />
-									</div>
-									<div className="chatName">
-										{message.chat_user}
-									</div> */}
-
 								</div>
 							</Link>
 						)

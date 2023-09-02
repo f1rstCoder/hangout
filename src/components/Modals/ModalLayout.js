@@ -7,16 +7,13 @@ import EmptyFragment from '../EmptyFragment';
 
 const ModalLayout = ({
   closeModal,
-  handleCloseButton,
-  currentPage = 1,
   modalHeaderTitle,
   modalNavDivLeft: ModalNavDivLeft = EmptyFragment,
   modalContent: ModalContent = EmptyFragment,
   modalFooterData: ModalFooterData = EmptyFragment,
 }) => {
-
   return (
-    <ModalSkeleton closeModal={closeModal} handleCloseButton={handleCloseButton} currentPage={currentPage}>
+    <ModalSkeleton closeModal={closeModal}>
       {/* Modal Header */}
       <div className={ModalLayoutCSS.modalHeadingDiv}>
         <div className={ModalLayoutCSS.modalNavDiv}>
@@ -29,7 +26,7 @@ const ModalLayout = ({
         </div>
         <div className={ModalLayoutCSS.modalNavDiv}>
           <div className="closingFunctionDiv" onClick={closeModal}>
-            <CloseIcon color={"currentColour"} />
+            <CloseIcon color={"currentColor"} />
           </div>
         </div>
       </div>

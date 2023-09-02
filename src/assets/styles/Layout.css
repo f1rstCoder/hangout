@@ -1,3 +1,7 @@
+.navbarLayout {
+  padding: 1vw;
+}
+
 .layoutContent {
   width: min(100vw, 900px);
   margin: auto;
@@ -36,6 +40,6 @@
     margin: auto;
     float: right;
     height: 100vh;
-    padding: 0px 20%;
+    padding: 0px 15%;
   }
 }

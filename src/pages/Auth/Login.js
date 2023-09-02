@@ -41,7 +41,7 @@ const Login = ({ user, redirectPath = '/home' }) => {
           hangout
         </div>
       </div>
-      <div className="form">
+      <div className="LoginForm">
 
         {error &&
           < div className="error">
@@ -91,6 +91,7 @@ const Login = ({ user, redirectPath = '/home' }) => {
             submitButtonText={"Let's Hangout"}
             disablingCondition={!username || !password}
           />
+
         </form>
       </div>
     </div >

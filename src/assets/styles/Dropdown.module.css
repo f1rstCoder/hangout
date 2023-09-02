@@ -1,0 +1,8 @@
+.option {
+  background-color: var(--root-background-color);
+  width: 100%;
+}
+
+.option:hover {
+  cursor: pointer;
+}

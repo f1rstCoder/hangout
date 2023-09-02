@@ -11,13 +11,13 @@ const Feeds = (props) => {
           .reverse()
           .map(newPost => {
             return (
-              <Post post={newPost} />
+              <Post post={newPost} id={props.id} user={props.user} />
             )
           })
       }
       {props.posts.map(post => {
         return (
-          <Post post={post} />
+          <Post post={post} id={props.id} user={props.user} />
         )
       })}
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import "../../assets/styles/Post.css";
 import {
   ThumbsupEmpty,
@@ -6,7 +6,9 @@ import {
   Comments,
   BookmarkEmpty,
   BookmarkFilled,
-  EmojiIcon
+  EmojiIcon,
+  ChevronRight,
+  TrashIcon
 } from "../../assets/icons/PostsIcons";
 import Slider from "../../components/Slider";
 import TimeAgo from "../../components/TimeAgo";
@@ -15,12 +17,15 @@ import { handleFindAccount } from "../../utils/Functions";
 import SubmitButton from '../../components/ui/Buttons/SubmitButton';
 import Textarea from "../../components/form/Textarea";
 import { AuthorBar } from "../../components/AuthorBar";
+import CommentsSection from "../CommentsSection/CommentsSection";
+import ConfirmPostDelete from "../../components/Modals/SinglePageModals/ConfirmPostDelete";
 
-const Post = ({ post }) => {
+const Post = ({ post, id, user }) => {
   const myPost = useMemo(() => (post), [])
   const images = require.context("../../assets/emojis/", false);
   const imageList = images.keys().map((image) => images(image));
   const [showComments, setShowComments] = useState(false);
+  const [showDeletePostModal, setShowDeletePostModal] = useState(false);
   const [showEmojis, setShowEmojis] = useState(false);
   const reactions = ["angry", "crying", "happy", "heart", "lol", "sad"];
   const [liked, setLiked] = useState(false);
@@ -33,6 +38,9 @@ const Post = ({ post }) => {
   const [commentsCount, setCommentsCount] = useState(post.comments.length)
   const [followerProfilePics, setFollowerProfilePics] = useState([])
   const [reactionCount, setReactionCount] = useState([])
+  const postRef = useRef()
+  const commentRef = useRef()
+  const customCommentRef = useRef()
 
   const getProfilePic = authorName => {
     getAxios(`http://localhost:3050/users`, {
@@ -41,6 +49,8 @@ const Post = ({ post }) => {
       .then(res => setFollowerProfilePics(oldVal => [...oldVal, res[0]?.profile_photo]))
       .catch(err => console.error(err))
   }
+
+  const closeModalConfirmPostDelete = () => setShowDeletePostModal(false)
 
   useEffect(() => {
     getProfilePic(myPost.author)
@@ -120,30 +130,38 @@ const Post = ({ post }) => {
     setCommentsCount(commentsCount + 1)
   };
 
-  return (
-    <div className="post">
-      <div className="addingAuthorBarInPosts" onClick={() => handleFindAccount(post.author)}>
-        <AuthorBar
-          profilePhotoURL={followerProfilePics[0]}
-          authorName={post.author}
-          byLineContent={<TimeAgo timestamp={post.date_posted} />}
-        />
-      </div>
-      {/* <div className="credits">
-        <div className="author" onClick={() => handleFindAccount(post.author)}>
-          <div className="profilePicDiv">
-            <img src={followerProfilePics[0]} alt="" className="profilePic" />
-          </div>
-          <div className="authorName">
-            {post.author}
-          </div>
-        </div>
-        <div className="time">
-          <TimeAgo timestamp={post.date_posted} />
-        </div>
-      </div> */}
 
-      {post.media.length > 0 && <Slider mediaFiles={post.media} />}
+
+  return (
+    <div className="post" ref={postRef}>
+      {showDeletePostModal &&
+        <ConfirmPostDelete
+          postRefVal={postRef}
+          setShowDeletePostModal={setShowDeletePostModal}
+          closingFunction={closeModalConfirmPostDelete}
+        />}
+      <div className="addingAuthorBarInPosts" >
+        <div className="addingAuthorBarAndEditIconInPosts">
+          <div className="firstPartAuthorBar">
+            <AuthorBar
+              profilePhotoURL={followerProfilePics[0]}
+              authorName={post.author}
+              byLineContent={<TimeAgo timestamp={post.date_posted} />}
+              onClickAuthor={() => handleFindAccount(post.author)}
+            />
+          </div>
+          {id === user &&
+            <div className="secondPartEditIcon" onClick={() => setShowDeletePostModal(true)}>
+              <TrashIcon />
+            </div>
+          }
+        </div>
+      </div>
+
+      {post.media.length > 0 &&
+        <Slider mediaFiles={post.media} />
+      }
+
       <div className="content">{post.content}</div>
       <div className="impression">
         <div className="impressionType likes" onClick={handleLike}>
@@ -159,6 +177,7 @@ const Post = ({ post }) => {
           <div className="svg">
             <Comments />
           </div>
+          <div className="count">{customComments.length + post.comments.length}</div>
         </div>
         <div className="impressionType saves" onClick={handleSave}>
           <div className="svg">
@@ -209,8 +228,6 @@ const Post = ({ post }) => {
             <h2>Comments:</h2>
             <form className="commentsForm" onSubmit={handleCommentPost}>
               <div className="commentsFormDiv">
-
-
                 {/* <textarea
               name=""
               placeholder="Add Comment..."
@@ -231,7 +248,7 @@ const Post = ({ post }) => {
 
                 <div className="submitComment">
                   <SubmitButton
-                    submitButtonText={"Post"}
+                    submitButtonText={<ChevronRight />}
                     disablingCondition={!commentContent.split(" ").join("")}
                   />
                 </div>
@@ -243,60 +260,25 @@ const Post = ({ post }) => {
                 .reverse()
                 .map((comment, index) => {
                   return (
-                    <>
-                      <div className="comment" key={index}>
-                        <div
-                          className="addingAuthorBarInComments"
-                          onClick={() => handleFindAccount(comment.author)}
-                        >
-                          <AuthorBar
-                            profilePhotoURL={() => getProfilePic(comment.author)}
-                            authorName={comment.author}
-                            byLineContent={<TimeAgo timestamp={comment.date_commented} />}
-                            type='comment'
-                          />
-                        </div>
-                        {comment.content && (
-                          <div className="content">{comment.content}</div>
-                        )}
-                      </div>
-                    </>
+                    <CommentsSection
+                      index={index}
+                      comment={comment}
+                      handleFindAccount={() => handleFindAccount(comment.author)}
+                      getProfilePic={() => getProfilePic(comment.author)}
+                      refVal={customCommentRef}
+                    />
                   );
                 })}
             {post.comments &&
               post.comments.map((comment, index) => {
                 return (
-                  <>
-                    <div className="comment">
-                      {/* <div className="credits">
-                      <div
-                        className="findCommentAuthor"
-                        onClick={() => handleFindAccount(comment.author)}
-                      >
-                        <div className="author">
-                          <div className="authorName commentAuthorName">{comment.author}</div>
-                        </div>
-                      </div>
-                      <div className="time">
-                        <TimeAgo timestamp={comment.date_commented} />
-                      </div>
-                    </div> */}
-                      <div
-                        className="addingAuthorBarInComments"
-                        onClick={() => handleFindAccount(comment.author)}
-                      >
-                        <AuthorBar
-                          profilePhotoURL={() => getProfilePic(comment.author)}
-                          authorName={comment.author}
-                          byLineContent={<TimeAgo timestamp={comment.date_commented} />}
-                          type='comment'
-                        />
-                      </div>
-                      {comment.content && (
-                        <div className="content">{comment.content}</div>
-                      )}
-                    </div>
-                  </>
+                  <CommentsSection
+                    index={index}
+                    comment={comment}
+                    handleFindAccount={() => handleFindAccount(comment.author)}
+                    getProfilePic={() => getProfilePic(comment.author)}
+                    refVal={commentRef}
+                  />
                 );
               })}
           </div>

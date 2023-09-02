@@ -2,18 +2,18 @@ import React from 'react'
 import AuthorBarCSS from '../assets/styles/AuthorBar.module.css'
 import PhotoCSS from '../assets/styles/Photos.module.css'
 
-export const AuthorBar = ({ profilePhotoURL = '', authorName = '', byLineContent = '', type = '' }) => {
+export const AuthorBar = ({ profilePhotoURL = '', authorName = '', byLineContent = '', type = '', onClickAuthor = () => { } }) => {
   const finalByLineContent = ''
   return (
     <div className={AuthorBarCSS.authorBar}>
       <div className={AuthorBarCSS.authorBarContent}>
         {type !== 'comment' &&
-          <div className={AuthorBarCSS.profilePhotoDiv}>
+          <div className={AuthorBarCSS.profilePhotoDiv} onClick={onClickAuthor}>
             <ProfilePhoto profilePhotoURL={profilePhotoURL} />
           </div>
         }
         <div className={AuthorBarCSS.authorBarContentDiv}>
-          <div className={AuthorBarCSS.authorNameDiv}>
+          <div className={AuthorBarCSS.authorNameDiv} onClick={onClickAuthor}>
             {authorName}
           </div>
           <div className={AuthorBarCSS.byLineDiv}>

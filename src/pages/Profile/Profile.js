@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import EditProfileModal from '../../components/Modals/MultiPageModals/EditProfileModal';
 import FloatingButton from '../../components/ui/Buttons/FloatingButton';
 import { Message } from '../../assets/icons/PostsIcons';
+import { setPostCount } from '../../context/data/dataSlice';
 
 const Profile = () => {
   const { id } = useParams()
@@ -46,6 +47,10 @@ const Profile = () => {
 
   const handleEditProfileModalCallback = editedProfileData => setCategory(editedProfileData)
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [newPosts]);
+
   return (
     <div className='profile'>
       <div className="heading">
@@ -60,11 +65,13 @@ const Profile = () => {
         </div>
         <div className="line"></div>
         <div className="profilePanel">
-          <div className="editIcon">
-            <div className="editText" onClick={() => setShowEditProfileModal(true)}>
-              Edit
+          {user === id &&
+            <div className="editIcon">
+              <div className="editText" onClick={() => setShowEditProfileModal(true)}>
+                Edit
+              </div>
             </div>
-          </div>
+          }
           <div className="editIcon">
             <div className="editText" onClick={() => setShowFollowersModal(true)}>
               Followers
@@ -97,7 +104,7 @@ const Profile = () => {
         </div>
 
         <div className="numOfPosts">
-          Posts: {posts.length}
+          Posts: {newPosts?.length + posts?.length}
         </div>
         {showNewPostModal && <NewPostModal closingFunction={closeModalNewPost} />}
         {showFollowersModal && <ShowFollowers id={id} closingFunction={closeModalFollowers} />}
@@ -130,6 +137,8 @@ const Profile = () => {
       <Feeds
         newPosts={newPosts}
         posts={posts}
+        id={id}
+        user={user}
       />
     </div >
   )

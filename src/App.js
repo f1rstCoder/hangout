@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './assets/styles/App.css';
 import Login from './pages/Auth/Login';
 import ProtectedRoute from './pages/Auth/ProtectedRoute';
@@ -10,9 +11,18 @@ import DirectMessagePage from './pages/DirectMessage/DirectMessagePage';
 import Search from './pages/Search/Search';
 import Trending from './pages/Trending/Trending';
 import Error from './pages/Error404/Error';
+import { setLightMode, setDarkMode } from './utils/Functions';
 
 function App() {
   const id = localStorage.getItem('id')
+
+  useEffect(() => {
+    if (localStorage.getItem('theme') === 'dark')
+      setDarkMode()
+    else
+      setLightMode()
+  }, [])
+
   return (
     <div className="App">
       <Routes>

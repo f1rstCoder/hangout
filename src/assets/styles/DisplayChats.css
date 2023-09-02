@@ -20,7 +20,8 @@
     border-radius: 0.25rem;
     padding: 0.25rem;
     margin: 0.25rem 0rem;
-    background-color: var(--root-hover-color);
+    /* background-color: var(--root-hover-color); */
+    border-bottom: 1px solid rgba(156, 156, 156, 0.3);
     justify-content: space-between;
 }
 
@@ -36,4 +37,23 @@
 
 .lastChatDate {
     text-align: center;
+}
+
+.unreadMsgsDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unreadMsgsCounter {
+    background-color: var(--root-theme-color);
+    width: fit-content;
+    padding: 0.25rem 0.45rem;
+    /* border-radius: 0.25rem; */
+    border-radius: 50%;
+    text-align: center;
+}
+
+.unreadMsgsCounter {
+    font-size: 0.8rem;
 }

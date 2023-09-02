@@ -1,4 +1,5 @@
 import React from 'react'
+import InputCSS from '../../assets/styles/Input.module.css'
 
 const Calendar = ({ receivedValue = '', handleOnChange = {}, receivedAutoComplete = 'off' }) => {
   return (
@@ -7,6 +8,7 @@ const Calendar = ({ receivedValue = '', handleOnChange = {}, receivedAutoComplet
       value={receivedValue}
       onChange={handleOnChange}
       autoComplete={receivedAutoComplete}
+      className={InputCSS.inputStyle}
     />
   )
 }

@@ -6,8 +6,11 @@
   border-bottom: 1px solid var(--root-icon-color);
   position: sticky;
   top: 0px;
-  background-color: black;
   z-index: 200;
+}
+
+.navbar a {
+  color: var(--root-text-color);
 }
 
 .navlinks {
@@ -17,6 +20,11 @@
 .navlink-data {
   display: flex;
   width: 100%;
+}
+
+.navIconComponent {
+  width: 100%;
+  float: left;
 }
 
 .hangoutHeader {
@@ -63,16 +71,25 @@ a {
   display: none;
 }
 
+
+@media screen and (max-width: 900px) {
+  .iconDiv {
+    max-width: 50px;
+  }
+}
+
 @media screen and (min-width: 900px) {
   .navbar {
+    left: 0;
     display: flex;
     flex-direction: column;
     position: absolute;
     height: 100vh;
-    width: 20%;
+    width: max(20%, 250px);
     border-right: 1px solid rgba(156, 156, 156, 0.3);
     border-bottom: 0px;
     padding: 0.3rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   .iconDiv {
@@ -88,6 +105,13 @@ a {
     display: block;
     display: flex;
     align-items: center;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    width: 70%;
   }
+
+  .navIconComponent {
+    width: 40%;
+    float: left;
+  }
+
 }

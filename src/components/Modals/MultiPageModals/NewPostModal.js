@@ -1,27 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import ModalSkeleton from '../ModalSkeleton'
 import { useDispatch } from 'react-redux';
 import { setPosts } from '../../../context/data/dataSlice'
 import '../../../assets/styles/NewPostModal.css'
 import JoditEditor from 'jodit-react';
-import { CloseIcon, ImageIcon, BackIcon, ChevronRight } from '../../../assets/icons/PostsIcons';
+import { CloseIcon, ImageIcon, BackIcon, ChevronRight, VideoIcon } from '../../../assets/icons/PostsIcons';
 import { getAxios } from '../../../lib/DefineAxiosGet';
 import NavigateButton from '../../ui/Buttons/NavigateButton';
 import SubmitButton from '../../ui/Buttons/SubmitButton';
 import Textarea from '../../form/Textarea';
+import ModalLayoutCSS from '../../../assets/styles/ModalLayout.module.css'
+import HeadingTag from '../../ui/HeadingTag';
 
 const NewPostModal = ({ closingFunction }) => {
+  // const [mediaPhoto, setMediaPhoto] = useState([])
+  // const [mediaVideo, setMediaVideo] = useState([])
   const [media, setMedia] = useState([])
   const [postContent, setPostContent] = useState('')
   const id = localStorage.getItem('id')
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1)
+  const newPostImgInputRef = useRef(null);
+  const newPostVideoInputRef = useRef(null);
 
   const onMediaChange = event => {
     if (event.target.files) {
+      console.log(event.target.files)
       for (let i = 0; i < event.target.files.length; i++) {
         const newObj = URL.createObjectURL(event.target.files[i])
-        setMedia(oldArray => [...oldArray, newObj]);
+        // if (event.target.files[i].type.slice(0, 5) === 'image') {
+        //   setMediaPhoto(oldArray => [...oldArray, {mediaFile: newObj, type:'image'}]);
+        // } else {
+        //   setMediaVideo(oldArray => [...oldArray, newObj])
+        // }
+        setMedia(oldArray => [...oldArray, newObj])
         URL.revokeObjectURL(event.target.files[i])
       }
     }
@@ -43,14 +55,6 @@ const NewPostModal = ({ closingFunction }) => {
   }
 
   const uploadPost = newPostAuthor => {
-    const currentDate = new Date()
-    const year = currentDate.getFullYear()
-    const month = currentDate.getMonth()
-    const date = currentDate.getDate()
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    const seconds = currentDate.getSeconds();
-
     dispatch(setPosts({
       "author": newPostAuthor,
       "content": postContent,
@@ -74,113 +78,136 @@ const NewPostModal = ({ closingFunction }) => {
     }))
     closingFunction()
   }
-  const handleCloseButton = (
-    <SubmitButton
-      submitButtonText={"Post"}
-      handleOnClickFunction={() => getTheProfilePicAndName(id)}
-      disablingCondition={!media.length && !postContent.split(" ").join("")}
-    />
-  )
+  const HandleCloseButton = () => {
+    return (
+      <SubmitButton
+        submitButtonText={"Post"}
+        handleOnClickFunction={() => getTheProfilePicAndName(id)}
+        disablingCondition={!media.length && !postContent.split(" ").join("")}
+      />
+    )
+  }
 
   return (
-    <ModalSkeleton closeModal={closingFunction} handleCloseButton={handleCloseButton} currentPage={currentPage}>
-      <div className="postHeading">
-        {currentPage === 2 &&
-          <div className="modalTopBtn" onClick={() => setCurrentPage(1)}>
-            <BackIcon color={"white"} />
+    <ModalSkeleton closeModal={closingFunction} >
+      <div className={ModalLayoutCSS.modalHeadingDiv}>
+        <div className={ModalLayoutCSS.modalNavDiv}>
+          <div className="navDivLeftDiv">
+            {currentPage === 2 &&
+              <div onClick={() => setCurrentPage(pageVal => pageVal - 1)}>
+                <BackIcon color="white" />
+              </div>
+            }
           </div>
-        }
-        <h2 className='postTitle'>Create A New Post</h2>
-        <div className="modalTopBtn" onClick={closingFunction}>
-          <CloseIcon color={"white"} />
+        </div>
+        <div className={ModalLayoutCSS.modalHeader}>
+          <HeadingTag type='h2' tagTitle='Create Post' />
+        </div>
+        <div className={ModalLayoutCSS.modalNavDiv}>
+          <div className="closingFunctionDiv" onClick={closingFunction}>
+            <CloseIcon color={"currentColor"} />
+          </div>
         </div>
       </div>
-      <form>
-        {currentPage === 1 &&
-          <>
-            {media.length === 0 &&
-              <div className="postTypeDiv">
-                <h3 className='postTypeTitle'>Upload Media</h3>
-              </div>
-            }
-            {media.length !== 0 &&
-              <div className="displayMedia">
 
-                {media.map((medium, index) =>
-                  <div className='postImgDiv'>
-                    <div className="removeImgBtn" onClick={() => removeMediaFunc(index)}>
-                      <CloseIcon color={"black"} />
+      <div className={ModalLayoutCSS.modalContent}>
+        <form className='newPostForm'>
+          {currentPage === 1 &&
+            <>
+              {media.length === 0 ?
+                <div className="postTypeDiv">
+                  <h3 className='postTypeTitle'>Wish to Upload any Media? (optional)</h3>
+                </div>
+                :
+                media.length !== 0 &&
+                <div className="displayMedia">
+                  {media.map((medium, index) =>
+                    <div className='postImgDiv'>
+                      <div className="removeImgBtn" onClick={() => removeMediaFunc(index)}>
+                        <CloseIcon color={"black"} />
+                      </div>
+                      {/* {medium.type == 'video/mp4' ?
+                        <video controls>
+                          <source src={medium} id="video_here" />
+                          Your browser does not support HTML5 video.
+                        </video>
+                        :
+                        // <img src={medium} alt="" className='postImg' key={index} />'
+                      } */}
+                      <img src={medium} alt="" className='postImg' key={index} />
                     </div>
-                    <img src={medium} alt="" className='postImg' key={index} />
-                  </div>
-                )
-                }
-              </div>
-            }
-
-            <div className="addMedia page1">
-              <div>
-                <label htmlFor="addImg">
-                  <ImageIcon />
-                </label>
-                <input
-                  type='file'
-                  accept="image/*"
-                  id="addImg"
-                  onChange={onMediaChange}
-                  multiple
+                  )
+                  }
+                </div>
+              }
+            </>
+          }
+          {currentPage === 2 &&
+            <>
+              <div className="editor">
+                <Textarea
+                  receivedName='NewPostTextArea'
+                  receivedPlaceholder={"Some text...??? And sorry, but this is not optional :("}
+                  receivedRows={15}
+                  receivedValue={postContent}
+                  handleOnChange={e => setPostContent(e.target.value)}
                 />
               </div>
-              <div>
+            </>
+          }
+        </form>
+      </div>
+
+      {/* Modal Footer */}
+      <div className={ModalLayoutCSS.modalFooter}>
+        {currentPage === 1 &&
+          <div className="addMedia page1">
+            <div>
+              <label htmlFor="addImg">
                 <NavigateButton
-                  navigateButtonText={<ChevronRight />}
-                  handleClickFunction={() => setCurrentPage(2)}
+                  navigateButtonText={<ImageIcon />}
+                  handleClickFunction={() => newPostImgInputRef.current.click()}
                 />
-              </div>
-            </div>
-            {/* <div>
-                <label htmlFor="addVideo">
-                  <VideoIcon />
-                </label>
-                <input
-                  type='file'
-                  accept="video/*"
-                  id="addVideo"
-                  onChange={onMediaChange}
-                  multiple
-                />
-              </div> */}
-
-          </>
-        }
-        {currentPage !== 1 &&
-          <>
-            <div className="editor">
-              {/* <JoditEditor
-            ref={editor}
-            value={postContent}
-            tabIndex={1}
-            onChange={newContent => setPostContent(newContent)}
-          /> */}
-              {/* <textarea
-                name="NewPostTextArea"
-                className='textArea newPostTextArea'
-                rows={15}
-                value={postContent}
-                onChange={e => setPostContent(e.target.value)}
-              >
-              </textarea> */}
-              <Textarea
-                receivedName='NewPostTextArea'
-                receivedPlaceholder={"Chat with your buddy..."}
-                receivedRows={15}
-                receivedValue={postContent}
-                handleOnChange={e => setPostContent(e.target.value)}
+              </label>
+              <input
+                type='file'
+                accept="image/*"
+                id="addImg"
+                onChange={onMediaChange}
+                multiple
+                className='hideInput'
+                ref={newPostImgInputRef}
               />
             </div>
-          </>
+            {/* <div>
+              <label htmlFor="addVideo">
+                <NavigateButton
+                  navigateButtonText={<VideoIcon />}
+                  handleClickFunction={() => newPostVideoInputRef.current.click()}
+                />
+              </label>
+              <input
+                type='file'
+                accept="video/*"
+                id="addVideo"
+                onChange={onMediaChange}
+                multiple
+                className='hideInput'
+                ref={newPostVideoInputRef}
+              />
+            </div> */}
+            <div>
+              <NavigateButton
+                navigateButtonText={<ChevronRight />}
+                handleClickFunction={() => setCurrentPage(2)}
+              />
+            </div>
+          </div>
         }
-      </form>
+        {currentPage === 2 &&
+          < HandleCloseButton />
+        }
+      </div>
     </ModalSkeleton >
   )
 }
