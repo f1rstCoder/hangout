@@ -16,7 +16,6 @@
   width: 100vw;
   word-wrap: normal;
   background-color: grey;
-  /* position: absolute; */
   bottom: 0px;
   flex-grow: 1;
 }

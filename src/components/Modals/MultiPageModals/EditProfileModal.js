@@ -14,15 +14,18 @@ import SubmitButton from '../../ui/Buttons/SubmitButton';
 
 const EditProfileModal = ({ currentData, closingFunction, editProfileData }) => {
   const [editProfileName, setEditProfileName] = useState(currentData[0])
-  const [editProfileDOB, setEditProfileDOB] = useState(currentData[1])
+  const dateParts = currentData[1].split('-')
+  const [editProfileDOB, setEditProfileDOB] = useState(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`)
   const [editProfileCity, setEditProfileCity] = useState(currentData[2])
   const [editProfileCountry, setEditProfileCountry] = useState(currentData[3])
   const [editProfileGender, setEditProfileGender] = useState(currentData[4])
   const [editProfileOccupation, setEditProfileOccupation] = useState(currentData[5])
   const [editProfileDescription, setEditProfileDescription] = useState(currentData[6])
+  const [editProfileBannerPic, setEditProfileBannerPic] = useState(currentData[7])
+  const [editProfileProfilePic, setEditProfileProfilePic] = useState(currentData[8])
   const CountriesApiList = useMemo(() => countryList().getData(), [])
-  const [currentPage, setCurrentPage] = useState(1)
-  console.log(CountriesApiList[0])
+  const [currentPage, setCurrentPage] = useState(0)
+
   const saveEditProfile = () => {
     if (editProfileName.length > 0) {
       editProfileData([
@@ -67,18 +70,18 @@ const EditProfileModal = ({ currentData, closingFunction, editProfileData }) => 
           </div>
         </div>
         <div className={ModalLayoutCSS.modalHeader}>
-          <HeadingTag type='h2' tagTitle={`Edit ${currentPage}/2`} />
-        </div>
+          <HeadingTag type='h2' tagTitle={`Edit ${currentPage + 1}/3`} />
+        </div >
         <div className={ModalLayoutCSS.modalNavDiv}>
           <div className="closingFunctionDiv" onClick={closingFunction}>
             <CloseIcon color={"currentColor"} />
           </div>
         </div>
-      </div>
+      </div >
 
       <div className={ModalLayoutCSS.modalContent}>
         <form className='editProfileForm'>
-          {currentPage === 1 &&
+          {currentPage === 0 &&
             <div className='editProfilePageOne'>
               <div className="editFormComponent">
                 <label htmlFor="editProfileName">
@@ -122,7 +125,7 @@ const EditProfileModal = ({ currentData, closingFunction, editProfileData }) => 
               </div>
             </div>
           }
-          {currentPage === 2 &&
+          {currentPage === 1 &&
             <div className='editProfilePageOne'>
               <div className="editFormComponent">
                 <label htmlFor="editProfileCity">
@@ -158,12 +161,23 @@ const EditProfileModal = ({ currentData, closingFunction, editProfileData }) => 
               </div>
             </div>
           }
+          {/* {
+            currentPage === 2 &&
+            <div className="editProfilePageOne">
+              <div className="displayBannerImg">
+                
+              </div>
+              <div className="displayProfileImg">
+                Bye
+              </div>
+            </div>
+          } */}
         </form>
       </div >
 
       {/* Modal Footer */}
       < div className={ModalLayoutCSS.modalFooter} >
-        {currentPage === 1 ?
+        {currentPage < 2 ?
           <div>
             <NavigateButton
               navigateButtonText={<ChevronRight />}

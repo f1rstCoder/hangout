@@ -25,7 +25,7 @@ const Message = () => {
 	useEffect(() => {
 		getAxios(`http://localhost:3071/users/${id}`)
 			.then(res => setMessages([...res.direct_messages]))
-			.catch(err => console.err(err))
+			.catch(err => console.error(err))
 	}, [])
 
 	return (

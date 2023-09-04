@@ -33,6 +33,7 @@ const Profile = () => {
 
   const [category, setCategory] = useState([])
   useEffect(() => {
+    console.log("This is my data: ", data)
     setCategory([
       data.name,
       data.date_of_birth,
@@ -40,7 +41,9 @@ const Profile = () => {
       data.country,
       data.gender,
       data.occupation,
-      data.description
+      data.description,
+      data.banner_photo,
+      data.profile_photo
     ])
   }, [data])
   const categoryTitle = ['Name', 'Date of Birth', 'City of Residence', 'Country', 'Gender', 'Occupation']

@@ -10,9 +10,7 @@
     color: var(--root-text-color);
     padding: 0.75rem;
     border-radius: 0.5rem;
-    /* box-shadow: 5px 5px 7px 3px rgba(255, 255, 255, .1); */
     opacity: 1;
-    /* pointer-events: none; */
     transform: translateY(-10px);
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
     width: 200px;
@@ -24,12 +22,6 @@ button.link {
     border-radius: 0px;
     background-color: transparent;
 }
-
-/* .dropdown.activeDropdown>.dropdown-menu {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-} */
 
 ul.dropdownMenuList {
     list-style-type: none;
@@ -65,9 +57,6 @@ ul.dropdownMenuList {
         position: absolute;
         left: 15vw;
         top: -75px;
-        /* box-shadow: 5px 5px 7px 3px rgba(255, 255, 255, .1); */
-        /* transform: translateY(100px) translateX(300px); */
-        /* transition: opacity 150ms ease-in-out, transform 150ms ease-in-out; */
     }
 
     .logoDiv {

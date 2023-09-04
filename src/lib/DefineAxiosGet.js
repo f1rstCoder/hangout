@@ -7,5 +7,6 @@ export const getAxios = (url, params = {}) => {
 		params: params
 	})
 		.then(res => res.data)
+		.catch(err => console.error("This is getAxios err: ", err))
 }
 

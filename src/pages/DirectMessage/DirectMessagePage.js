@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../../assets/styles/DirectMessagePage.css'
 import TimeAgo from '../../components/TimeAgo'
 import SubmitButton from '../../components/ui/Buttons/SubmitButton';
@@ -21,17 +21,21 @@ const DirectMessagePage = () => {
 			.then(res => {
 				setProfilePicUrl(res.length === 0 ? 'Invalid' : res[0].profile_photo)
 				getAxios(`http://localhost:3071/users/${my_id}`)
-					.then(res => setMessages(oldArray => [...oldArray, res.direct_messages]))
+					.then(res => {
+						if (res.direct_messages.length > 0) {
+							const thisIsChatHistoryWithThisUser = res.direct_messages.filter(eachMessage => eachMessage.chat_user === receivedUsername.username)
+							if (thisIsChatHistoryWithThisUser.length)
+								setMessages([...thisIsChatHistoryWithThisUser[0].chats])
+						}
+					})
 					.catch(err => console.error(err))
 			})
-			.catch(err => console.error(err))
+			.catch(err => console.error("Error is: ", err))
 	}, [])
 
-	// const location = useLocation();
-	// const [propsData, setPropsData] = useState(location?.state ? location.state : null)
+
 	const [chatContent, setChatContent] = useState('')
 	const [chatDetails, setChatDetails] = useState([])
-	console.log(messages[0].filter(message => message?.chat_user === receivedUsername.username)[0])
 
 	const handleChatSubmit = e => {
 		e.preventDefault();
@@ -44,17 +48,6 @@ const DirectMessagePage = () => {
 		setChatDetails(oldArray => [...oldArray, newChat]);
 		setChatContent("");
 	}
-	const ref = useRef(null);
-
-	useEffect(() => {
-		if (chatDetails.length) {
-			ref.current?.scrollIntoView({
-				behavior: "smooth",
-				block: "end",
-			});
-		}
-	}, [chatDetails.length]);
-
 
 	if (profilePicUrl === 'Invalid')
 		return <Navigate to={'no_such_path'} replace />
@@ -69,32 +62,42 @@ const DirectMessagePage = () => {
 				/>
 			</div>
 			<div className="chatsContent">
-				<div className="chatsUI">
-					<div className="cell">
-						{/* {chatDetails?.map(chat => { */}
-						{messages[0]
-							.filter(message =>
-								message?.chat_user === receivedUsername.username ?
-									message?.chat_user === receivedUsername.username
-									: []
-							)[0]
-							.chats
-							.map(chat => {
-								return (
-									<div className="messageContainer">
-										<div className={`individualMessage ${chat.from === "host" ? "right" : "left"}`}>
-											<div className="messageContent">
-												<div className={`messageTime ${chat.from === "host" ? "right" : "left"}`}>
-													<TimeAgo timestamp={chat.chat_date} />
-												</div>
-												{chat.chat_content}
+				{/* <div className="chatsUI"> */}
+				<div className="cell">
+					{messages.length > 0 &&
+						messages.map(chat => {
+							return (
+								<div className="messageContainer">
+									<div className={`individualMessage ${chat.from === "host" ? "right" : "left"}`}>
+										<div className="messageContent">
+											<div className={`messageTime ${chat.from === "host" ? "right" : "left"}`}>
+												<TimeAgo timestamp={chat.chat_date} />
 											</div>
+											{chat.chat_content}
 										</div>
 									</div>
-								)
-							})}
-					</div>
+								</div>
+							)
+						})
+					}
+					{chatDetails.length > 0 &&
+						chatDetails.map(chat => {
+							return (
+								<div className="messageContainer">
+									<div className={`individualMessage ${chat.from === "host" ? "right" : "left"}`}>
+										<div className="messageContent">
+											<div className={`messageTime ${chat.from === "host" ? "right" : "left"}`}>
+												<TimeAgo timestamp={chat.chat_date} />
+											</div>
+											{chat.chat_content}
+										</div>
+									</div>
+								</div>
+							)
+						})
+					}
 				</div>
+				{/* </div> */}
 			</div>
 			<div className="addChat">
 				<form className="chatsForm" onSubmit={handleChatSubmit}>
